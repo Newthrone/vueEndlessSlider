@@ -85,11 +85,16 @@ export default {
       }
     },
     debounce(callback) {
-      const DEBOUNCE_DURATION = 50;
-      let timeout;
+      const DEBOUNCE_DURATION = 1000
+      let timeout
+      let delay
+      let start = 0
       return (arg) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(callback, DEBOUNCE_DURATION, arg);
+        if (Date.now() - start > DEBOUNCE_DURATION) delay = 0
+        else delay = DEBOUNCE_DURATION
+        clearTimeout(timeout)
+        timeout = setTimeout(callback, delay, arg)
+        start = Date.now()
       };
     }
   }
