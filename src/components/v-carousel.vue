@@ -43,8 +43,7 @@ export default {
     slideSize: {
       type: Object,
       required: true
-    },
-    promise: null
+    }
   },
   data() {
     return {
@@ -79,15 +78,14 @@ export default {
         this.hasTransition = false
         this.currentSlideIndex -= shiftSliderIndex
         this.$emit('slide:change', direction)
-        this.promise
-          .then(() => {
-            this.hasTransition = true
-            this.currentSlideIndex += shiftSliderIndex
-          })
+        setTimeout(()=>{
+          this.hasTransition = true
+          this.currentSlideIndex += shiftSliderIndex
+        }, 30)
       }
     },
     debounce(callback) {
-      const DEBOUNCE_DURATION = 1000
+      const DEBOUNCE_DURATION = 50
       let timeout
       let delay
       let start = 0

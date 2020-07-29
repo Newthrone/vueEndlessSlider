@@ -2,7 +2,6 @@
   <div id="app">
     <v-carousel :carousel_data="sliderItems"
                 :slideSize="slideSize"
-                :promise="promise"
                 @slide:change="reconfigurationSlider"
     />
   </div>
@@ -29,21 +28,13 @@ export default {
       slideSize: {
         width: '300px',
         height: '200px'
-      },
-      promise: null,
-      promiseResolve: null,
+      }
     }
-  },
-  created() {
-    this.promise = new Promise((resolve) => {
-      this.promiseResolve = resolve;
-    });
   },
   methods: {
     reconfigurationSlider(direction) {
       if (direction === 'next') this.sliderItems.push(this.sliderItems.shift())
       else if (direction === 'prev') this.sliderItems.unshift(this.sliderItems.pop())
-      this.promiseResolve()
     }
   }
 }
