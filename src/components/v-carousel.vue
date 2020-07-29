@@ -44,6 +44,7 @@ export default {
       type: Object,
       required: true
     },
+    promise: null
   },
   data() {
     return {
@@ -76,12 +77,13 @@ export default {
       else if (direction === 'next' && this.currentSlideIndex < this.carousel_data.length - 1) this.currentSlideIndex += shiftSliderIndex
       else {
         this.hasTransition = false
-        this.$emit('slide:change', direction)
         this.currentSlideIndex -= shiftSliderIndex
-        setTimeout(()=> {
-          this.hasTransition = true
-          this.currentSlideIndex += shiftSliderIndex
-        }, 0)
+        this.$emit('slide:change', direction)
+        this.promise
+          .then(() => {
+            this.hasTransition = true
+            this.currentSlideIndex += shiftSliderIndex
+          })
       }
     },
     debounce(callback) {
